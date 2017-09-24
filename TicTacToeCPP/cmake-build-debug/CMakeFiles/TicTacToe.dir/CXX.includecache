@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/Stephen/CLionProjects/cpp/TicTacToeCPP/Resources.cpp
+Resources.h
+/cygdrive/c/Users/Stephen/CLionProjects/cpp/TicTacToeCPP/Resources.h
+
+/cygdrive/c/Users/Stephen/CLionProjects/cpp/TicTacToeCPP/Resources.h
+iostream
+-
+string
+-
+iomanip
+-
+random
+-
+
+/cygdrive/c/Users/Stephen/CLionProjects/cpp/TicTacToeCPP/main.cpp
+Resources.h
+/cygdrive/c/Users/Stephen/CLionProjects/cpp/TicTacToeCPP/Resources.h
+
