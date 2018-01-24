@@ -1,13 +1,20 @@
-//
-// Created by stephen on 17/01/18.
-//
+/**
+ * INTERFACE CLASS
+ */
 
 #include "Interface.h"
 
+/**
+ * This is a constructor. It is probably not needed
+ */
 Interface::Interface() {
 
 }
 
-void Interface::openFile(std::string fileName) {
-
+/**
+ * This handles opening a file. The filename param is for the file name that's entered as an command line argument
+ * @param fileName
+ */
+bool Interface::openFile(std::string fileName) {
+    std::cout << "Opened a file";
 }

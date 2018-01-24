@@ -4,9 +4,12 @@
 
 #ifndef CPP_ASSIGNMENT1_INTERFACE_H
 #define CPP_ASSIGNMENT1_INTERFACE_H
+#include "UnixExtras.h"
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <ostream>
+#include <fstream>
 
 class Interface {
 public:
@@ -14,7 +17,7 @@ public:
     Interface();
 
     // Functions
-    void openFile(std::string fileName);
+    bool openFile(std::string fileName);
 private:
 
 };
