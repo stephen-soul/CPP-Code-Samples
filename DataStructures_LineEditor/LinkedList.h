@@ -4,12 +4,9 @@
 
 #pragma once
 #include "Node.h"
-#include <string>
 
 class LinkedList {
 public:
-    // Make object for node
-    Node *first, *last;
     // Constructor and virtual destructor
     LinkedList();
     virtual ~LinkedList();
@@ -19,11 +16,13 @@ public:
     void deleteNode(int nodenum);
     void insertAfterValue(std::string value, std::string num);
     void insertBeforeNode(int nodenum, std::string num);
-    void displayWithLineNumber();
+    void display();
     void displayWithoutLineNumber();
     void addToPosition(int position, std::string value);
+    void insertAtStart(std::string value);
     // Variables
-
+    int lineNumber;
 private:
-
+    // Make object for node
+    Node *head, *tail;
 };
