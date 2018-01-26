@@ -16,8 +16,6 @@ class Editor {
 public:
     // Linked List object
     LinkedList linkedList;
-    // Unix Extras object
-    UnixExtras unixExtras;
     // Constructor & Destructor
     Editor();
     ~Editor();
@@ -30,6 +28,7 @@ public:
     void deletion(int firstLineToDelete, int secondLineToDelete);
     void showLine(int lineToShow1, int lineToShow2);
     void quitAndSave(std::string newFile);
+    void callSubstitution(int lineToSubstitute, std::string valueToSubstitute);
     // Variables
     std::ifstream file;
     std::string line;
@@ -41,5 +40,4 @@ public:
     bool running = true;
     // Make a variable for the line number
     int currentLineNumber;
-
 };

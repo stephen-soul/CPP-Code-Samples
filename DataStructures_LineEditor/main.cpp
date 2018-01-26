@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
         // If we make it here, make the file name argument 1 and new file argument 2
         std::string fileName = argv[1];
         std::string newFile = argv[2];
-        // Try to open the file. If it fails, return 0
+        // Try to open the file. If it fails, return 0 & close
         if(!editor.readFromFile(fileName))
             return 0;
         // Then ask the user for input and start that loop

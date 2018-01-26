@@ -111,12 +111,18 @@ void Editor::askUserForInput(std::string newFile) {
             // If the user types i, check the second value.
             if (std::regex_match(userChoice[1], digitCheck)) {
                 // If the second digit matches 1-9 do this
-                std::cout << "Please enter the new line for line " << userChoice[1] << "\n\n>> ";
-                getline(std::cin, newLine);
-                // Turn the user input into an int and pass it
-                selectedFirstInput = userChoice[1];
-                int lineToInsertInto = std::stoi(selectedFirstInput);
-                insertIntoBuffer(lineToInsertInto, newLine);
+                int selectedLineNumber = std::stoi(userChoice[1]);
+                if(selectedLineNumber <= linkedList.getSizeOfList()) {
+                    // If the number of lines is less than the number of lines available, do what they asked
+                    std::cout << "Please enter the new line for line " << userChoice[1] << "\n\n>> ";
+                    getline(std::cin, newLine);
+                    // Pass the value to the buffer and add it
+                    insertIntoBuffer(selectedLineNumber, newLine);
+                } else {
+                    // Else, If the user entered a number greater than the size of the list, tell them
+                    std::cout << "That line number exceeds the number of lines available\n\n";
+                    continue;
+                }
             } else if (userChoice[1].empty()) {
                 // If there is no second digit do this
                 std::cout << "Please enter a new line for line " << currentLineNumber << "\n\n>> ";
@@ -212,8 +218,29 @@ void Editor::askUserForInput(std::string newFile) {
             quitAndSave(newFile);
             running = false;
             // --------------------------------------------------------------------------------------------------------
-        } else if (userChoice[0] == "i") {
-
+        } else if (userChoice[0] == "s") {
+            // If the user hits s it means they want to substitute.
+            if (userChoice[1].empty()) {
+                // If the user hit S without anything else then they want to substitute the current line
+                std::cout << "Please enter the substitution for line " << currentLineNumber << "\n\n>> ";
+                getline(std::cin, newLine);
+                callSubstitution(currentLineNumber, newLine);
+            } else if (std::regex_match(userChoice[1], digitCheck) && userChoice[2].empty()) {
+                int newLineNumber = std::stoi(userChoice[1]);
+                if(newLineNumber < linkedList.getSizeOfList()) {
+                    // If the user enters S and a number substitute that number, but check that number
+                    std::cout << "Please enter the substitution for line " << currentLineNumber << "\n\n>> ";
+                    getline(std::cin, newLine);
+                    callSubstitution(newLineNumber, newLine);
+                } else {
+                    std::cout << "You cannot substitute a line that does not exist. Please check things over"
+                            "and try again.\n\n";
+                }
+            } else {
+                // If the user enters anything else, tell them it wont work and re-ask for input
+                std::cout << "Unfortunately that input cannot be parsed. Please look it over and try again.\n\n";
+                continue;
+            }
             // --------------------------------------------------------------------------------------------------------
         } else if (userChoice[0] == "v") {
             // If the user types V show them the lines in the buffer
@@ -296,14 +323,23 @@ void Editor::showLine(int lineToShow1, int lineToShow2) {
 }
 
 void Editor::quitAndSave(std::string fileName) {
+    // Open up an ofstream to make the new file
     std::ofstream newFile(fileName);
     if(newFile.is_open()) {
+        // If file is open, make a for loop the size of the list - 1 and dump the contents into the text file
         for(int i = 1; i <= linkedList.getSizeOfList()-1; i++) {
             newFile << linkedList.returnLinesForSaving(i) << "\n";
         }
     } else {
+        // If it somehow fails (maybe read/write access issues) tell the user
         std::cout << "Unable to open file\n\n";
     }
     newFile.close();
+}
+
+void Editor::callSubstitution(int lineToSubstitute, std::string valueToSubstitute) {
+    // If the line to subtitute is in range, do it
+    deletion(lineToSubstitute, 0);
+    insertIntoBuffer(lineToSubstitute, valueToSubstitute);
 }
 
