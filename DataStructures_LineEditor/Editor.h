@@ -26,14 +26,16 @@ public:
     void displayHelpScreen();
     void displayLinesWithLineNumber();
     void insertIntoBuffer(int i, std::string value);
-    void askUserForInput(std::string fileName, std::string newFile);
-    void insertAtBeginning(int i, std::string value);
+    void askUserForInput();
+    void deletion(int firstLineToDelete, int secondLineToDelete);
+    void showLine(int lineToShow1, int lineToShow2);
     // Variables
     std::ifstream file;
     std::string line;
     std::string userInput;
     std::string newLine;
-    std::string selectedInput;
+    std::string selectedFirstInput;
+    std::string selectedSecondInput;
     // Make a bool for the editor running
     bool running = true;
     // Make a variable for the line number

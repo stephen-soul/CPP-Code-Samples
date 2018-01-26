@@ -72,98 +72,20 @@ void LinkedList::add(std::string num) {
 //}
 
 /*
- *	DELETE A VALUE
+ *	DELETE A THE FIRST VALUE
  */
 
-void LinkedList::deleteValue(std::string value) {
-    Node *node = head;
-    Node *prev = nullptr;
-
-    while (node != nullptr) {
-        if (node->data == value) {
-            break;
-        }
-
-        prev = node;
-        node = node->next;
-    }
-
-    if (node != nullptr) {
-        if (node == head) {
-            head = node->next;
-        } else {
-            prev->next = node->next;
-        }
-
-        delete node;
-    }
-}
-
-/*
- *	DELETE A NODE
- */
-
-void LinkedList::deleteNode(int nodenum) {
-    int index = -1;
-
-    Node *node = head;
-    Node *prev = nullptr;
-
-    while (node != nullptr) {
-        index++;
-
-        if (index == nodenum) {
-            break;
-        }
-
-        prev = node;
-        node = node->next;
-    }
-
-    if (index >= 0) {
-        if (node == head) {
-            head = node->next;
-        } else {
-            prev->next = node->next;
-        }
-
-        delete node;
-    }
+void LinkedList::deleteFirst()
+{
+    auto *node = new Node;
+    node = head;
+    head = head->next;
+    delete node;
 }
 
 /*
  *	INSERT AFTER CURRENT VALUE
  */
-
-void LinkedList::insertAfterValue(std::string value, std::string num) {
-    Node *node = new Node();
-    node->data = num;
-
-    // search for node to insert after
-    Node *prev = head;
-
-    while (prev != nullptr) {
-        if (prev->data == value) {
-            break;
-        }
-
-        prev = prev->next;
-    }
-
-    // insert node into list
-    if (head == nullptr) {
-        head = node;
-    } else {
-        if (prev != nullptr) {
-            node->next = prev->next;
-            prev->next = node;
-        } else {
-            // could not find the node to insert after
-            // so defaulting to Add function
-            add(num);
-        }
-    }
-}
 
 /*
  *	INSERT BEFORE CURRENT NODE
@@ -209,12 +131,12 @@ void LinkedList::insertBeforeNode(int nodenum, std::string num) {
 void LinkedList::display() {
     // Get the node, put it at the beginning, while node != nullptr show the data
     Node *node;
-    lineNumber = 1;
+    showLine = 1;
     node = head;
     while (node != nullptr) {
-        std::cout << lineNumber << ". " << node->data << std::endl;
+        std::cout << showLine << ". " << node->data << std::endl;
         node = node->next;
-        lineNumber++;
+        showLine++;
     }
 }
 
@@ -248,4 +170,104 @@ void LinkedList::insertAtStart(std::string value)  {
     node->data=value;
     node->next=head;
     head=node;
+}
+
+/*
+ * HANDLE DELETION AT A SPECIFIC POSITION
+ */
+
+void LinkedList::deleteAtPosition(int positionOne, int positionTwo) {
+    auto *firstNode = new Node;
+    auto *secondNode = new Node;
+    firstNode = head;
+    secondNode = head;
+    if(positionTwo == 0) {
+        // If only one number was entered then delete only that one
+        for (int i = 1; i < positionOne; i++) {
+            secondNode = firstNode;
+            firstNode = firstNode->next;
+        }
+        secondNode->next = firstNode->next;
+    } else {
+        // Else if more than one number was entered, delete in the range
+        for(int x = 1; x < positionOne; x++) {
+            firstNode = firstNode->next;
+        }
+        for(int o = 1; o < positionTwo; o++) {
+            secondNode = secondNode->next;
+        }
+        for(int z = positionOne; z <= positionTwo; z++) {
+            firstNode->next = secondNode->next;
+        }
+    }
+}
+
+/*
+ * DISPLAY THE SPECIFIC LINE(S) ENTERED
+ */
+
+void LinkedList::displaySpecificLines(int lineToShow1, int lineToShow2) {
+    // Show just the line(s) entered
+    auto *currentNode = new Node;
+    //auto *secondaryNode = new Node;
+    currentNode = head;
+    //secondaryNode = head;
+    specificLine1 = lineToShow1;
+    specificLine2 = lineToShow2;
+    if(lineToShow2 == 0) {
+        for(int i = 1; i < lineToShow1; i++) {
+            currentNode = currentNode->next;
+        }
+        std::cout << lineToShow1 << ". " << currentNode->data;
+    }
+}
+
+/*
+ * GET THE SIZE OF THE LIST TO AVOID SEGMENTATION FAULTS
+ */
+
+int LinkedList::getSizeOfList() {
+    auto *node = new Node;
+    node = head;
+    howManyLines = 1;
+    if(node != nullptr) {
+        while (node != nullptr) {
+            node = node->next;
+            howManyLines++;
+        }
+    } else {
+        howManyLines = 0;
+    }
+    return howManyLines;
+}
+
+/*
+ * INSERT AT THE END OF THE LIST
+ */
+
+void LinkedList::insertAtEnd(std::string value) {
+    auto *node = new Node;
+    node->data = value;
+    node->next = nullptr;
+    if(head == nullptr) {
+        head = node;
+        tail = node;
+        node = nullptr;
+    } else {
+        tail->next = node;
+        tail = node;
+    }
+}
+
+void LinkedList::deleteLast() {
+    auto *currentNode = new Node;
+    auto *previousNode = new Node;
+    currentNode = head;
+    while(currentNode->next != nullptr) {
+        previousNode = currentNode;
+        currentNode = currentNode->next;
+    }
+    tail = previousNode;
+    previousNode->next = nullptr;
+    delete currentNode;
 }
