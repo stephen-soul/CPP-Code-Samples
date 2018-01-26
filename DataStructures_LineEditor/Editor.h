@@ -26,9 +26,10 @@ public:
     void displayHelpScreen();
     void displayLinesWithLineNumber();
     void insertIntoBuffer(int i, std::string value);
-    void askUserForInput();
+    void askUserForInput(std::string newFile);
     void deletion(int firstLineToDelete, int secondLineToDelete);
     void showLine(int lineToShow1, int lineToShow2);
+    void quitAndSave(std::string newFile);
     // Variables
     std::ifstream file;
     std::string line;

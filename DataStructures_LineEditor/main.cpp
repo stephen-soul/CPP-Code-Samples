@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
         if(!editor.readFromFile(fileName))
             return 0;
         // Then ask the user for input and start that loop
-        editor.askUserForInput();
+        editor.askUserForInput(newFile);
     }
     return 0;
 }// End of main

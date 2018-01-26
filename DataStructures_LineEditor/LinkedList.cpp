@@ -218,7 +218,16 @@ void LinkedList::displaySpecificLines(int lineToShow1, int lineToShow2) {
         for(int i = 1; i < lineToShow1; i++) {
             currentNode = currentNode->next;
         }
-        std::cout << lineToShow1 << ". " << currentNode->data;
+        std::cout << specificLine1 << ". " << currentNode->data;
+    } else {
+        for(int i = 1; i < specificLine1; i++) {
+            currentNode = currentNode->next;
+        }
+        for(int i = specificLine1; i <= specificLine2; i++) {
+            std::cout << specificLine1 << ". " << currentNode->data << std::endl;
+            currentNode = currentNode->next;
+            specificLine1++;
+        }
     }
 }
 
@@ -259,6 +268,10 @@ void LinkedList::insertAtEnd(std::string value) {
     }
 }
 
+/*
+ * DELETE THE LAST ENTRY
+ */
+
 void LinkedList::deleteLast() {
     auto *currentNode = new Node;
     auto *previousNode = new Node;
@@ -270,4 +283,18 @@ void LinkedList::deleteLast() {
     tail = previousNode;
     previousNode->next = nullptr;
     delete currentNode;
+}
+
+/*
+ * THIS IS PURELY FOR SAVING THE CONTENTS TO THE FILE
+ */
+
+std::string LinkedList::returnLinesForSaving(int numOfLine) {
+    auto *node = new Node;
+    node = head;
+    for(int i = 1; i < numOfLine; i++) {
+        node = node->next;
+    }
+    std::string lineInformation = node->data;
+    return lineInformation;
 }

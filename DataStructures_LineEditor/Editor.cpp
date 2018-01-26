@@ -65,7 +65,7 @@ void Editor::insertIntoBuffer(int i, std::string newValue) {
     }
 }
 
-void Editor::askUserForInput() {
+void Editor::askUserForInput(std::string newFile) {
     while (running) {
         // Make regex for digits
         std::regex digitCheck("^[1-9][0-9]*");
@@ -207,8 +207,10 @@ void Editor::askUserForInput() {
                 }
             }
             // --------------------------------------------------------------------------------------------------------
-        } else if (userChoice[0] == "i") {
-
+        } else if (userChoice[0] == "e") {
+            // If the user hits e it means save & quit, so do just that
+            quitAndSave(newFile);
+            running = false;
             // --------------------------------------------------------------------------------------------------------
         } else if (userChoice[0] == "i") {
 
@@ -292,3 +294,16 @@ void Editor::showLine(int lineToShow1, int lineToShow2) {
                 << "The line(s) to show exceed the number of lines available. Please look over your source and try again.\n\n";
     }
 }
+
+void Editor::quitAndSave(std::string fileName) {
+    std::ofstream newFile(fileName);
+    if(newFile.is_open()) {
+        for(int i = 1; i <= linkedList.getSizeOfList()-1; i++) {
+            newFile << linkedList.returnLinesForSaving(i) << "\n";
+        }
+    } else {
+        std::cout << "Unable to open file\n\n";
+    }
+    newFile.close();
+}
+

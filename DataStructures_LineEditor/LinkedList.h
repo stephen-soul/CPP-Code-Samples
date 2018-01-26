@@ -22,6 +22,7 @@ public:
     void addToPosition(int position, std::string value);
     void insertAtStart(std::string value);
     int getSizeOfList();
+    std::string returnLinesForSaving(int i);
     // Variables for specific lines to display
     int specificLine1;
     int specificLine2;
