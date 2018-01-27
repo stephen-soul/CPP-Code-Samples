@@ -166,11 +166,13 @@ void Editor::askUserForInput(std::string newFile) {
             if(userChoice[1].empty()) {
                 // If the user enters d and nothing else delete the current line
                 deletion(currentLineNumber, 0);
+                currentLineNumber--;
             } else if (std::regex_match(userChoice[1], digitCheck) && userChoice[2].empty()) {
                 // If the user enters d and a only one number, check that number and then delete it
                 selectedFirstInput = userChoice[1];
                 int newCurrentLine = std::stoi(selectedFirstInput);
                 deletion(newCurrentLine, 0);
+                currentLineNumber = newCurrentLine-1;
             } else if (std::regex_match(userChoice[1], digitCheck) && std::regex_match(userChoice[2], digitCheck)) {
                 // If the user enters d and 2 numbers, check them and then delete the range
                 selectedFirstInput = userChoice[1];
@@ -185,6 +187,9 @@ void Editor::askUserForInput(std::string newFile) {
                 } else {
                     // Else run the delete in the range of number 1 to number 2
                     deletion(convertedFirstInput, convertedSecondInput);
+                    if(currentLineNumber > linkedList.getSizeOfList()) {
+                        currentLineNumber = convertedFirstInput;
+                    }
                 }
             } else {
                 // If the user enters anything else, notify them that the input is weird and to retry
@@ -264,7 +269,7 @@ void Editor::askUserForInput(std::string newFile) {
 
 void Editor::deletion(int firstLineToDelete, int secondLineToDelete) {
     // If the first number is less than the size of the list
-    if(firstLineToDelete < linkedList.getSizeOfList()) {
+    if(firstLineToDelete < linkedList.getSizeOfList() && secondLineToDelete < linkedList.getSizeOfList()) {
         if (firstLineToDelete == 1 && secondLineToDelete == 0) {
             // If first number is 1 and second number is 0 delete the head
             std::cout << "\nDeleting line " << firstLineToDelete << std::endl;
@@ -309,7 +314,7 @@ void Editor::deletion(int firstLineToDelete, int secondLineToDelete) {
 
 void Editor::showLine(int lineToShow1, int lineToShow2) {
     // If the user views a line that's within range do this
-    if (lineToShow1 < linkedList.getSizeOfList()) {
+    if (lineToShow1 < linkedList.getSizeOfList() && lineToShow2 < linkedList.getSizeOfList()) {
         if (lineToShow2 == 0) {
             linkedList.displaySpecificLines(lineToShow1, 0);
         } else {
@@ -342,4 +347,3 @@ void Editor::callSubstitution(int lineToSubstitute, std::string valueToSubstitut
     deletion(lineToSubstitute, 0);
     insertIntoBuffer(lineToSubstitute, valueToSubstitute);
 }
-

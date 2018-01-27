@@ -50,27 +50,6 @@ void LinkedList::add(std::string num) {
     }
 }
 
-//void LinkedList::add(std::string num) {
-//    Node *node = new Node();
-//    node->data = num;
-//
-//    if (head == nullptr) {
-//        head = node;
-//    } else {
-//        Node *currNode = head;
-//        Node *prevNode = nullptr;
-//
-//        while (currNode != nullptr) {
-//            prevNode = currNode;
-//            currNode = currNode->next;
-//        }
-//
-//        if (prevNode != nullptr) {
-//            prevNode->next = node;
-//        }
-//    }
-//}
-
 /*
  *	DELETE A THE FIRST VALUE
  */
@@ -81,47 +60,6 @@ void LinkedList::deleteFirst()
     node = head;
     head = head->next;
     delete node;
-}
-
-/*
- *	INSERT AFTER CURRENT VALUE
- */
-
-/*
- *	INSERT BEFORE CURRENT NODE
- */
-
-void LinkedList::insertBeforeNode(int nodenum, std::string num) {
-    int index = -1;
-    Node *newnode = new Node();
-    newnode->data = num;
-    Node *node = head;
-    Node *prev = head;
-
-    while (node != nullptr) {
-        index++;
-
-        if (index == nodenum) {
-            break;
-        }
-
-        prev = node;
-        node = node->next;
-    }
-
-    // insert node into list
-    if (head == nullptr) {
-        head = newnode;
-    } else {
-        if (node != nullptr) {
-            prev->next = newnode;
-            newnode->next = node;
-        } else {
-            // could not find the node to insert after
-            // so defaulting to Add function
-            add(num);
-        }
-    }
 }
 
 /*

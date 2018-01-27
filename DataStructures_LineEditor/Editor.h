@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <regex>
 #include "LinkedList.h"
-#include "UnixExtras.h"
 
 class Editor {
 public:
