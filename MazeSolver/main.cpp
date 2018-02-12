@@ -4,11 +4,10 @@
 
 #include "userInterface.h"
 
-// Make an object for the interface
-interface userInterface;
-
 int main() {
+    // Make an object for the interface
+    interface userInterface;
     // Call the introduction on start
-    userInterface.introduction();
+    userInterface.programRun();
     return 0;
 }

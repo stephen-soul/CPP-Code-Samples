@@ -6,6 +6,7 @@
 #define MAZESOLVER_MAZEFILEIO_H
 
 #include "userInterface.h"
+#include <fstream>
 
 class mazeFileIO {
 public:
@@ -13,14 +14,14 @@ public:
     mazeFileIO();
     ~mazeFileIO();
     // Functions
-    void openFile(int i);
-private:
-    // String for maze name
+    void selectMaze(int i);
+    void drawMaze(std::string maze);
+    std::string **returnedMaze;
     std::string mazeName;
-    // Int for switch case deciding which maze to open
-    int selectedMaze;
-    // Dynamic array
-    std::string returnedMaze;
+private:
+    int numberOfLines;
+    long widthOfMaze;
+    std::string lineToRead;
 };
 
 
