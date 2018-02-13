@@ -35,7 +35,6 @@ void interface::introduction() {
         if(std::regex_match(choice, digitCheck)) {
             // If the number is 5, close the program
             if(choice == "5") {
-                cout << "Thank you. Good bye." << std::endl;
                 askingForMaze = false;
             } else {
                 // Else pass the 1-4 value to the maze selector class
@@ -49,13 +48,41 @@ void interface::introduction() {
             cout << "Please ensure you enter a number 1 - 4" << std::endl << std::endl;
             continue;
         }
+        delete maze;
     } while(askingForMaze);
 }
 
 void interface::programRun() {
     do {
+        std::regex restartChoice("^[1-2]");
+        bool askingForRestart = true;
         introduction();
-        if(choice == "5")
+        if(choice == "5") {
+            cout << "Thank you. Good bye." << std::endl;
             running = false;
+            break;
+        }
+        choice = "";
+        while(askingForRestart) {
+            cout << "\nWould you like to run through another maze?\n(1) Yes\n(2) No\n>> ";
+            getline(std::cin, choice);
+            if(std::regex_match(choice, restartChoice)) {
+                int newChoice = stoi(choice);
+                switch(newChoice) {
+                    case 1:
+                        askingForRestart = false;
+                        break;
+                    case 2:
+                        cout << "\nThank you, have a good day." << std::endl;
+                        running = false;
+                        askingForRestart = false;
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                cout << "\nPlease enter a proper input\n";
+            }
+        }
     } while(running);
 }
