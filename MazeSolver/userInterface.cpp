@@ -52,6 +52,7 @@ void interface::introduction() {
     } while(askingForMaze);
 }
 
+// Handles the program running
 void interface::programRun() {
     do {
         std::regex restartChoice("^[1-2]");
