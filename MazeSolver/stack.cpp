@@ -25,11 +25,22 @@ int stack::Peek() {
 
 errorCodes stack::Pop() {
     if (_top != nullptr) {
+
         stackNode* node = _top;
         _top = _top->getNext();
         delete node;
         return(success);
-    } else {
+    }
+    else {
+        return(underflow);
+    }
+}
+
+errorCodes stack::Check() {
+    if (_top != nullptr) {
+        return(success);
+    }
+    else {
         return(underflow);
     }
 }

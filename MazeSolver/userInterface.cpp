@@ -21,20 +21,20 @@ interface::~interface() {
 // Welcome the user to the program and get the maze they want
 void interface::introduction() {
     // Object for mazeFileIO class
-    mazeFileIO *maze = new mazeFileIO;
+    auto *maze = new mazeFileIO;
     // Regex for the choice validation
-    std::regex digitCheck("^[1-5]");
+    std::regex digitCheck("^[1-6]");
     // Do while asking for input for user validation
     do {
         cout << "Welcome to the maze solver. Please select "
                 "an option below (1-5)\n"
-                "(1) Maze 1\n(2) Maze 2\n(3) Maze 3\n(4) Maze 4\n(5) Exit\n"
+                "(1) Maze 1\n(2) Maze 2\n(3) Maze 3\n(4) Maze 4\n(5) Maze X\n(6) Exit\n"
                 ">> ";
         getline(std::cin, choice);
         // If the input is 1-5
         if(std::regex_match(choice, digitCheck)) {
             // If the number is 5, close the program
-            if(choice == "5") {
+            if(choice == "6") {
                 askingForMaze = false;
             } else {
                 // Else pass the 1-4 value to the maze selector class
@@ -58,7 +58,7 @@ void interface::programRun() {
         std::regex restartChoice("^[1-2]");
         bool askingForRestart = true;
         introduction();
-        if(choice == "5") {
+        if(choice == "6") {
             cout << "Thank you. Good bye." << std::endl;
             running = false;
             break;

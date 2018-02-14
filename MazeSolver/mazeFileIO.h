@@ -15,13 +15,20 @@ public:
     ~mazeFileIO();
     // Functions
     void selectMaze(int i);
-    void drawMaze(std::string maze);
+    void makeMaze(std::string maze);
+    void drawMaze(std::string** maze);
+    void solveMaze(std::string** maze);
+    void writeMaze(std::string mazeName);
     std::string **returnedMaze;
     std::string mazeName;
 private:
     int numberOfLines;
     long widthOfMaze;
     std::string lineToRead;
+    std::string fileName;
+    bool solved;
+    int mazeRow;
+    int mazeColumn;
 };
 
 

@@ -18,6 +18,7 @@ public:
     errorCodes Push( int num );
     int Peek();
     errorCodes Pop();
+    errorCodes Check();
 private:
     stackNode *_top;
 };
