@@ -15,7 +15,9 @@ class user_interface {
   user_interface();
   ~user_interface();
   void introduction();
+  int *original_array;
   int *array_to_sort;
+  int random_number;
  private:
   std::string requested_numbers;
   int array_size;

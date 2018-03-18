@@ -24,19 +24,22 @@ void user_interface::introduction() {
                 continue;
             } else {
                 array_size = std::stoi(requested_numbers);
+                srand((unsigned int) time(nullptr));
+                original_array = new int[array_size];
+                for(int i = 0; i < array_size; i++) {
+                    random_number = (rand() % 32767) + 1;
+                    original_array[i] = random_number;
+                }
                 auto *original = new sorting_methods();
                 std::cout << "Original" << std::endl;
-                original->makearray(array_size);
-                for(int i = 0; i < array_size; i++) {
-                    std::cout << original->original_array[i] << " ";
-                }
-                auto *bubble = new sorting_methods(*original);
-                std::cout << "Bubble" << std::endl;
-                bubble->bubblesort(array_size);
-                std::cout << "Back to original" << std::endl;
-                for(int i = 0; i < array_size; i++) {
-                    std::cout << original->original_array[i] << " ";
-                }
+                original->returnarray(original_array, array_size);
+                auto *bubble = new sorting_methods(array_size);
+                std::cout << "\nBubble" << std::endl;
+                bubble->bubblesort(original_array, array_size);
+                bubble->returnarray(bubble->new_array, array_size);
+                std::cout << "\nBack to original" << std::endl;
+                delete bubble;
+                original->returnarray(original_array, array_size);
                 delete original;
                 break;
             }
