@@ -1,21 +1,25 @@
 //
-// Created by Stephen
+// Created by Stephen Fetinko
 //
 
 #ifndef SORTING_INTERFACE_H
 #define SORTING_INTERFACE_H
 #include <iostream>
 #include <string>
+#include <regex>
+#include <ctime>
+#include "sorting_methods.h"
 
 class user_interface {
  public:
   user_interface();
   ~user_interface();
-  void Introduction();
+  void introduction();
+  int *array_to_sort;
  private:
   std::string requested_numbers;
   int array_size;
-
+  bool asking_for_array_size;
 };
 
 
