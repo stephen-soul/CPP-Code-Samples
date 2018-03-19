@@ -36,23 +36,126 @@ void sorting_methods::bubblesort(int *array, int size) {
     }
 }
 
-void sorting_methods::selectionsort(int *passed_array) {
+void sorting_methods::selectionsort(int *array, int size) {
+    for(int i = 0; i < size; i++) {
+        this->new_array[i] = array[i];
+    }
+    int inner, outer, min;
+    for (outer = 0; outer < size - 1; outer++) {
+        min = outer;
+        for (inner = outer + 1; inner < size; inner++) {
+            if (new_array[inner] < new_array[min]) {
+                min = inner;
+            }
+        }
+        int temp = new_array[outer];
+        new_array[outer] = new_array[min];
+        new_array[min] = temp;
+    }
+}
+
+void sorting_methods::insertionsort(int *array, int size) {
+    for(int i = 0; i < size; i++) {
+        this->new_array[i] = array[i];
+    }
+    int i, j, temp;
+    for (i = 1; i < size; i++) {
+        j = i;
+        while (j > 0 && new_array[j-1] > new_array[j]) {
+            temp = new_array[j];
+            new_array[j] = new_array[j-1];
+            new_array[j-1] = temp;
+            j--;
+        }
+    }
+}
+
+void sorting_methods::shellsort(int *array, int size) {
+    for(int i = 0; i < size; i++) {
+        this->new_array[i] = array[i];
+    }
+    int i, j, increment;
+    for (increment = size/2; increment > 0; increment /= 2) {
+        for (i = increment; i < size; i++) {
+            int temp = new_array[i];
+            for (j = i; j >= increment; j -= increment) {
+                if (temp < new_array[j-increment]) {
+                    new_array[j] = new_array [j-increment];
+                } else {
+                    break;
+                }
+            }
+            new_array[j] = temp;
+        }
+    }
+}
+
+void sorting_methods::startmergesort(int *array, int size) {
+    for(int i = 0; i < size; i++) {
+        this->new_array[i] = array[i];
+    }
+    mergesort(new_array, 0, size-1);
+}
+
+void sorting_methods::mergesort(int *array, int left, int right) {
+    if (left < right) {
+        int middle = left+(right-left)/2;
+        mergesort(array, left, middle);
+        mergesort(array, middle+1, right);
+        merge(array, left, middle, right);
+    }
+}
+
+void sorting_methods::merge(int *array, int left, int middle, int right) {
+    int x, y, z;
+    int firsthalf = middle - left + 1;
+    int secondhalf = right - middle;
+    // Make a temp array
+    int Left[firsthalf], Right[secondhalf];
+
+    for (x = 0; x < firsthalf; x++) {
+        Left[x] = array[left + x];
+    }
+    for(y = 0; y < secondhalf; y++) {
+        Right[y] = array[middle + 1 + y];
+    }
+    x = 0;
+    y = 0;
+    z = left;
+    while(x < firsthalf && y < secondhalf) {
+        if(Left[x] <= Right[y]) {
+            array[z] = Left[x];
+            x++;
+        } else {
+            array[z] = Right[y];
+            y++;
+        }
+        z++;
+    }
+    while (x < firsthalf) {
+        array[z] = Left[x];
+        x++;
+        z++;
+    }
+    while (y < secondhalf) {
+        array[z] = Right[y];
+        y++;
+        z++;
+    }
+}
+
+void sorting_methods::startpartition(int *array, int size) {
+    for(int i = 0; i < size; i++) {
+        this->new_array[i] = array[i];
+    }
+    partitionforquicksort(new_array, 0, size-1);
+}
+
+void sorting_methods::partitionforquicksort(int *array, int low, int high) {
 
 }
 
-void sorting_methods::insertionsort(int *passed_array) {
-
-}
-
-void sorting_methods::shellsort(int *passed_array) {
-
-}
-
-void sorting_methods::mergesort(int *passed_array) {
-
-}
-
-void sorting_methods::quicksort(int *passed_array) {
+void sorting_methods::quicksort(int *array, int low, int high) {
 
 }
 

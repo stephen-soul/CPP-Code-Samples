@@ -21,7 +21,10 @@ class user_interface {
  private:
   std::string requested_numbers;
   int array_size;
+  int sort_choice;
   bool asking_for_array_size;
+  bool asking_for_sort_type;
+  std::string requested_sort;
 };
 
 
