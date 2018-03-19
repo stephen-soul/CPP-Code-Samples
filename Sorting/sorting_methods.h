@@ -22,8 +22,9 @@ class sorting_methods {
   void startmergesort(int *array, int size);
   void mergesort(int *array, int left, int right);
   void merge(int *array, int left, int middle, int right);
+  void swap(int *a, int *b);
   void startpartition(int *array, int size);
-  void partitionforquicksort(int *array, int low, int high);
+  int partitionforquicksort(int *array, int low, int high);
   void quicksort(int *array, int low, int high);
   int *new_array;
   int *sorted_array;

@@ -37,7 +37,9 @@ void user_interface::introduction() {
                 }
                 do {
                     std::regex digit_check_two("^[1-6]");
-                    std::cout << "\nWhich type of sort would you like?" << std::endl;
+                    std::cout << "\nWhich type of sort would you like?\n"
+                            "(1) Bubble\n(2) Selection\n(3) Insertion\n(4) Shell\n"
+                            "(5) Merge\n(6) Quick\n>> ";
                     std::getline(std::cin, requested_sort);
                     if(std::regex_match(requested_sort, digit_check_two)) {
                         sort_choice = std::stoi(requested_sort);
@@ -85,6 +87,13 @@ void user_interface::introduction() {
                         merge->startmergesort(original_array, array_size);
                         merge->returnarray(merge->new_array, array_size);
                         delete merge;
+                        break;
+                    } case 6: {
+                        auto *quick = new sorting_methods(array_size);
+                        std::cout << "\nQuick sort" << std::endl;
+                        quick->startpartition(original_array, array_size);
+                        quick->returnarray(quick->new_array, array_size);
+                        delete quick;
                         break;
                     }
                     default:

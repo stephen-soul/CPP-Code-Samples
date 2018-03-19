@@ -1,6 +1,7 @@
 //
 // Created by stephen on 16/03/18.
 //
+//
 
 #include "sorting_methods.h"
 
@@ -144,19 +145,40 @@ void sorting_methods::merge(int *array, int left, int middle, int right) {
     }
 }
 
+void sorting_methods::swap(int *a, int *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
 void sorting_methods::startpartition(int *array, int size) {
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
-    partitionforquicksort(new_array, 0, size-1);
+    quicksort(new_array, 0, size-1);
 }
 
-void sorting_methods::partitionforquicksort(int *array, int low, int high) {
-
+int sorting_methods::partitionforquicksort(int *array, int low, int high) {
+    int pivot = array[high];
+    int i = (low - 1);
+    for (int x = low; x <= high-1; x++) {
+        if(array[x] <= pivot) {
+            i++;
+            swap(&array[i], &array[x]);
+        }
+    }
+    swap(&array[i + 1], &array[high]);
+    return (i + 1);
 }
 
 void sorting_methods::quicksort(int *array, int low, int high) {
-
+    if (low < high) {
+        // Pi is partition index
+        int pi = partitionforquicksort(array, low, high);
+        // Separetely sort elements before and after
+        quicksort(array, low, pi - 1);
+        quicksort(array, pi + 1, high);
+    }
 }
 
 void sorting_methods::returnarray(int *array, int array_size) {
