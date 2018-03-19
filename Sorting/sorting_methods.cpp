@@ -22,7 +22,7 @@ void sorting_methods::makearray(int array_size) {
 }
 
 void sorting_methods::bubblesort(int *array, int size) {
-    //logstarttime();
+    startclock();
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
@@ -36,11 +36,11 @@ void sorting_methods::bubblesort(int *array, int size) {
             }
         }
     }
-
-    //logendtime();
+    endclock();
 }
 
 void sorting_methods::selectionsort(int *array, int size) {
+    startclock();
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
@@ -56,9 +56,11 @@ void sorting_methods::selectionsort(int *array, int size) {
         new_array[outer] = new_array[min];
         new_array[min] = temp;
     }
+    endclock();
 }
 
 void sorting_methods::insertionsort(int *array, int size) {
+    startclock();
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
@@ -72,9 +74,11 @@ void sorting_methods::insertionsort(int *array, int size) {
             j--;
         }
     }
+    endclock();
 }
 
 void sorting_methods::shellsort(int *array, int size) {
+    startclock();
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
@@ -92,12 +96,14 @@ void sorting_methods::shellsort(int *array, int size) {
             new_array[j] = temp;
         }
     }
+    endclock();
 }
 
 void sorting_methods::startmergesort(int *array, int size) {
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
+    startclock();
     mergesort(new_array, 0, size-1);
 }
 
@@ -146,6 +152,7 @@ void sorting_methods::merge(int *array, int left, int middle, int right) {
         y++;
         z++;
     }
+    endclock();
 }
 
 void sorting_methods::swap(int *a, int *b) {
@@ -158,6 +165,7 @@ void sorting_methods::startpartition(int *array, int size) {
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
+    startclock();
     quicksort(new_array, 0, size-1);
 }
 
@@ -182,6 +190,7 @@ void sorting_methods::quicksort(int *array, int low, int high) {
         quicksort(array, low, pi - 1);
         quicksort(array, pi + 1, high);
     }
+    endclock();
 }
 
 void sorting_methods::returnarray(int *array, int array_size) {
@@ -211,46 +220,45 @@ void sorting_methods::writetofile(int *array, int size, int sorttype) {
             break;
         case 2:
             strftime(buffer, 80, "selection_sort %c.txt", now);
+            break;
         case 3:
             strftime(buffer, 80, "insertion_sort %c.txt", now);
+            break;
         case 4:
             strftime(buffer, 80, "shell_sort %c.txt", now);
+            break;
         case 5:
             strftime(buffer, 80, "merge_sort %c.txt", now);
+            break;
         case 6:
             strftime(buffer, 80, "quick_sort %c.txt", now);
+            break;
         default:
             break;
     }
     std::ofstream myfile;
     myfile.open (buffer);
     if(myfile.is_open()) {
-        myfile << start_time << std::endl;
         for (int i = 0; i < size; i++) {
             myfile << array[i] << " ";
         }
-        myfile << end_time << std::endl;
+        myfile << "\n" << end_time << std::endl;
     }
     myfile.close();
-//    for(int i = 0; i < size; i++) {
-//        this->new_array[i] = array[i];
-//    }
 }
 
-//void sorting_methods::logstarttime() {
-//    time_t t = time(nullptr);
-//    struct tm * now = localtime ( & t );
-//
-//    char buffer [80];
-//    strftime(buffer, 80, "started at %c", now);
-//    start_time = buffer;
-//}
-//
-//void sorting_methods::logendtime() {
-//    time_t t = time(nullptr);
-//    struct tm * now = localtime ( & t );
-//
-//    char buffer [80];
-//    strftime(buffer, 80, "ended at %c", now);
-//    end_time = buffer;
-//}
+void sorting_methods::startclock() {
+    start = std::clock();
+}
+
+void sorting_methods::endclock() {
+    double time_it_took = (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000);
+    std::string end_time_string;
+    std::ostringstream convert;
+    convert << time_it_took;
+    end_time = "Elapsed time: " + convert.str() + " ms";
+}
+
+void sorting_methods::tracktime() {
+    std::cout << "Sorting finished in " << end_time;
+}

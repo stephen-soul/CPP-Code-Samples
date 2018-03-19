@@ -11,6 +11,7 @@ user_interface::user_interface() {
     sort_choice = 0;
     asking_for_array_size = true;
     asking_for_sort_type = true;
+    asking_for_reg_or_external = true;
 }
 
 user_interface::~user_interface() {
@@ -20,12 +21,11 @@ user_interface::~user_interface() {
 void user_interface::introduction() {
     std::regex digit_check("^[0-9]+");
     do {
-        requested_numbers = "";
         std::cout << "Welcome user. How many numbers are we sorting?\n>> ";
         std::getline(std::cin, requested_numbers);
         if(std::regex_match(requested_numbers, digit_check)) {
             if(requested_numbers[0] == '0') {
-                std::cout << "Bad\n\n";
+                std::cout << "Invalid input\n\n";
                 continue;
             } else {
                 array_size = std::stoi(requested_numbers);
@@ -50,64 +50,85 @@ void user_interface::introduction() {
                     }
                 } while(asking_for_sort_type);
                 auto *original = new sorting_methods();
-                std::cout << "Original" << std::endl;
-                original->returnarray(original_array, array_size);
+                std::cout << "Sorting..." << std::endl << std::endl;
+                //original->returnarray(original_array, array_size);
                 switch(sort_choice) {
                     case 1: {
                         auto *bubble = new sorting_methods(array_size);
-                        std::cout << "\nBubble sort" << std::endl;
                         bubble->bubblesort(original_array, array_size);
-                        bubble->returnarray(bubble->new_array, array_size);
-                        bubble->writetofile(bubble->new_array, array_size, 1);
+                        if(array_size <= 1000) {
+                            bubble->writetofile(bubble->new_array, array_size, 1);
+                            std::cout << "Done. Results are logged in cmake-build-debug folder." << std::endl;
+                        }
+                        else
+                            bubble->tracktime();
                         delete bubble;
                         break;
                     } case 2: {
                         auto *selection = new sorting_methods(array_size);
-                        std::cout << "\nSelection sort" << std::endl;
                         selection->selectionsort(original_array, array_size);
-                        selection->returnarray(selection->new_array, array_size);
-                        selection->writetofile(selection->new_array, array_size, 2);
+                        if(array_size <= 1000) {
+                            selection->writetofile(selection->new_array, array_size, 2);
+                            std::cout << "Done. Results are logged in cmake-build-debug folder." << std::endl;
+                        }
+                        else
+                            selection->tracktime();
                         delete selection;
                         break;
                     } case 3: {
                         auto *insertion = new sorting_methods(array_size);
-                        std::cout << "\nInsertion method" << std::endl;
                         insertion->insertionsort(original_array, array_size);
-                        insertion->returnarray(insertion->new_array, array_size);
+                        if(array_size <= 1000) {
+                            insertion->writetofile(insertion->new_array, array_size, 3);
+                            std::cout << "Done. Results are logged in cmake-build-debug folder." << std::endl;
+                        }
+                        else
+                            insertion->tracktime();
                         delete insertion;
                         break;
                     } case 4: {
                         auto *shell = new sorting_methods(array_size);
-                        std::cout << "\nShell sort" << std::endl;
                         shell->shellsort(original_array, array_size);
-                        shell->returnarray(shell->new_array, array_size);
+                        if(array_size <= 1000) {
+                            shell->writetofile(shell->new_array, array_size, 4);
+                            std::cout << "Done. Results are logged in cmake-build-debug folder." << std::endl;
+                        }
+                        else
+                            shell->tracktime();
                         delete shell;
                         break;
                     } case 5: {
                         auto *merge = new sorting_methods(array_size);
-                        std::cout << "\nMerge sort" << std::endl;
                         merge->startmergesort(original_array, array_size);
-                        merge->returnarray(merge->new_array, array_size);
+                        if(array_size <= 1000) {
+                            merge->writetofile(merge->new_array, array_size, 5);
+                            std::cout << "Done. Results are logged in cmake-build-debug folder." << std::endl;
+                        }
+                        else
+                            merge->tracktime();
                         delete merge;
                         break;
                     } case 6: {
                         auto *quick = new sorting_methods(array_size);
-                        std::cout << "\nQuick sort" << std::endl;
                         quick->startpartition(original_array, array_size);
-                        quick->returnarray(quick->new_array, array_size);
+                        if(array_size <= 1000) {
+                            quick->writetofile(quick->new_array, array_size, 6);
+                            std::cout << "Done. Results are logged in cmake-build-debug folder." << std::endl;
+                        }
+                        else
+                            quick->tracktime();
                         delete quick;
                         break;
                     }
                     default:
                         break;
                 }
-                std::cout << "\nAnd the original again" << std::endl;
-                original->returnarray(original_array, array_size);
+                //original->returnarray(original_array, array_size);
                 delete original;
                 break;
             }
         } else {
-            std::cout << "Bad\n\n";
+            std::cout << "Invalid input\n\n";
             continue;
         }
     } while(asking_for_array_size);

@@ -15,15 +15,20 @@ class user_interface {
   user_interface();
   ~user_interface();
   void introduction();
+  void externalmergesort();
   int *original_array;
   int *array_to_sort;
   int random_number;
  private:
   std::string requested_numbers;
+  std::string reg_or_external;
   int array_size;
   int sort_choice;
+  bool run_external_merge;
+  bool asking_for_reg_or_external;
   bool asking_for_array_size;
   bool asking_for_sort_type;
+  bool log_time;
   std::string requested_sort;
 };
 
