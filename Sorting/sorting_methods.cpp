@@ -1,6 +1,6 @@
 //
 // Created by stephen on 16/03/18.
-//
+// Merge & Quick sort better understood from geeksforgeeks.org (https://www.geeksforgeeks.org/merge-sort/) (https://www.geeksforgeeks.org/quick-sort/)
 //
 
 #include "sorting_methods.h"
@@ -195,4 +195,38 @@ sorting_methods::sorting_methods(int arraysize) {
     this->array_size = arraysize;
     this->new_array = new int[array_size];
     //this->original_array = array;
+}
+
+void sorting_methods::writetofile(int *array, int size, int sorttype) {
+    time_t t = time(nullptr);
+    struct tm * now = localtime ( & t );
+
+    char buffer [80];
+    switch(sorttype) {
+        case 1:
+            strftime(buffer, 80, "bubble_sort %c.txt", now);
+            break;
+        case 2:
+            strftime(buffer, 80, "selection_sort %c.txt", now);
+        case 3:
+            strftime(buffer, 80, "insertion_sort %c.txt", now);
+        case 4:
+            strftime(buffer, 80, "shell_sort %c.txt", now);
+        case 5:
+            strftime(buffer, 80, "merge_sort %c.txt", now);
+        case 6:
+            strftime(buffer, 80, "quick_sort %c.txt", now);
+        default:
+            break;
+    }
+    std::ofstream myfile;
+    myfile.open (buffer);
+    if(myfile.is_open()) {
+        for (int i = 0; i < size; i++) {
+            myfile << array[i] << " ";
+        }
+    }
+//    for(int i = 0; i < size; i++) {
+//        this->new_array[i] = array[i];
+//    }
 }

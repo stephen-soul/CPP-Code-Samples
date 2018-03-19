@@ -6,6 +6,9 @@
 #define SORTING_SORTING_METHODS_H
 #include <iostream>
 #include <string>
+#include <ostream>
+#include <fstream>
+
 
 class sorting_methods {
  public:
@@ -26,6 +29,7 @@ class sorting_methods {
   void startpartition(int *array, int size);
   int partitionforquicksort(int *array, int low, int high);
   void quicksort(int *array, int low, int high);
+  void writetofile(int *array, int size, int sorttype);
   int *new_array;
   int *sorted_array;
   int random_number;

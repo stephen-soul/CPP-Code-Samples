@@ -58,6 +58,7 @@ void user_interface::introduction() {
                         std::cout << "\nBubble sort" << std::endl;
                         bubble->bubblesort(original_array, array_size);
                         bubble->returnarray(bubble->new_array, array_size);
+                        bubble->writetofile(bubble->new_array, array_size, 1);
                         delete bubble;
                         break;
                     } case 2: {
@@ -65,6 +66,7 @@ void user_interface::introduction() {
                         std::cout << "\nSelection sort" << std::endl;
                         selection->selectionsort(original_array, array_size);
                         selection->returnarray(selection->new_array, array_size);
+                        selection->writetofile(selection->new_array, array_size, 2);
                         delete selection;
                         break;
                     } case 3: {
