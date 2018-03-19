@@ -22,6 +22,7 @@ void sorting_methods::makearray(int array_size) {
 }
 
 void sorting_methods::bubblesort(int *array, int size) {
+    //logstarttime();
     for(int i = 0; i < size; i++) {
         this->new_array[i] = array[i];
     }
@@ -35,6 +36,8 @@ void sorting_methods::bubblesort(int *array, int size) {
             }
         }
     }
+
+    //logendtime();
 }
 
 void sorting_methods::selectionsort(int *array, int size) {
@@ -222,11 +225,32 @@ void sorting_methods::writetofile(int *array, int size, int sorttype) {
     std::ofstream myfile;
     myfile.open (buffer);
     if(myfile.is_open()) {
+        myfile << start_time << std::endl;
         for (int i = 0; i < size; i++) {
             myfile << array[i] << " ";
         }
+        myfile << end_time << std::endl;
     }
+    myfile.close();
 //    for(int i = 0; i < size; i++) {
 //        this->new_array[i] = array[i];
 //    }
 }
+
+//void sorting_methods::logstarttime() {
+//    time_t t = time(nullptr);
+//    struct tm * now = localtime ( & t );
+//
+//    char buffer [80];
+//    strftime(buffer, 80, "started at %c", now);
+//    start_time = buffer;
+//}
+//
+//void sorting_methods::logendtime() {
+//    time_t t = time(nullptr);
+//    struct tm * now = localtime ( & t );
+//
+//    char buffer [80];
+//    strftime(buffer, 80, "ended at %c", now);
+//    end_time = buffer;
+//}

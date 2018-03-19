@@ -30,10 +30,14 @@ class sorting_methods {
   int partitionforquicksort(int *array, int low, int high);
   void quicksort(int *array, int low, int high);
   void writetofile(int *array, int size, int sorttype);
+  void logstarttime();
+  void logendtime();
   int *new_array;
   int *sorted_array;
   int random_number;
   int array_size;
+  std::string start_time;
+  std::string end_time;
   bool ordered;
 };
 
