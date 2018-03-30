@@ -8,6 +8,8 @@
 #include <string>
 #include <regex>
 #include <ctime>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "sorting_methods.h"
 
 class user_interface {
@@ -16,6 +18,7 @@ class user_interface {
   ~user_interface();
   void introduction();
   void externalmergesort();
+  bool checkiffileexists(std::string filename);
   int *original_array;
   int *array_to_sort;
   int random_number;
@@ -28,7 +31,8 @@ class user_interface {
   bool asking_for_reg_or_external;
   bool asking_for_array_size;
   bool asking_for_sort_type;
-  bool log_time;
+  bool asking_for_file;
+  std::string file_name;
   std::string requested_sort;
 };
 

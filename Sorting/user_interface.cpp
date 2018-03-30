@@ -12,16 +12,20 @@ user_interface::user_interface() {
     asking_for_array_size = true;
     asking_for_sort_type = true;
     asking_for_reg_or_external = true;
+    asking_for_file = true;
+    file_name = "";
 }
 
 user_interface::~user_interface() {
-    delete original_array;
+    // If the user selected introduction and ran through the options then this will be false
+    if(!asking_for_sort_type)
+        delete original_array;
 }
 
 void user_interface::introduction() {
     std::regex digit_check("^[0-9]+");
     do {
-        std::cout << "Welcome user. How many numbers are we sorting?\n>> ";
+        std::cout << "Welcome to regular sorting. How many numbers are we sorting today?\n>> ";
         std::getline(std::cin, requested_numbers);
         if(std::regex_match(requested_numbers, digit_check)) {
             if(requested_numbers[0] == '0') {
@@ -37,13 +41,13 @@ void user_interface::introduction() {
                 }
                 do {
                     std::regex digit_check_two("^[1-6]");
-                    std::cout << "\nWhich type of sort would you like?\n"
+                    std::cout << "\nNow which type of sort would you like?\n"
                             "(1) Bubble\n(2) Selection\n(3) Insertion\n(4) Shell\n"
                             "(5) Merge\n(6) Quick\n>> ";
                     std::getline(std::cin, requested_sort);
                     if(std::regex_match(requested_sort, digit_check_two)) {
                         sort_choice = std::stoi(requested_sort);
-                        break;
+                        asking_for_sort_type = false;
                     } else {
                         std::cout << "Please enter a choice listed." << std::endl;
                         continue;
@@ -123,7 +127,6 @@ void user_interface::introduction() {
                     default:
                         break;
                 }
-                //original->returnarray(original_array, array_size);
                 delete original;
                 break;
             }
@@ -132,4 +135,22 @@ void user_interface::introduction() {
             continue;
         }
     } while(asking_for_array_size);
+}
+
+void user_interface::externalmergesort() {
+    do {
+        std::cout << "Welcome to the external merge sorter. Let's start with you entering a file...\n>> ";
+        std::getline(std::cin, file_name);
+        if(checkiffileexists(file_name))
+            asking_for_file = false;
+        else
+            std::cout << "File does not exist!" << std::endl << std::endl;
+    } while (asking_for_file);
+    // Run the new file
+}
+
+// https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c
+bool user_interface::checkiffileexists(std::string filename) {
+    struct stat buffer{};
+    return (stat (filename.c_str(), &buffer) == 0);
 }
