@@ -1,11 +1,8 @@
-/*
- * C++ console application to compare sequential and binary searches
- * Stephen Fetinko // 2018
- */
-
-#include <iostream>
+// C++ console application to compare sequential and binary searches | Stephen Fetinko 2018
+#include "userInterface.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    auto interface = new userInterface();
+    interface->introduction();
     return 0;
 }
