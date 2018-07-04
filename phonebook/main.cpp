@@ -2,6 +2,8 @@
 
 int main() {
     interface menu;
-    menu.main_menu();
+    while(menu.program_running) {
+        menu.main_menu();
+    }
     return 0;
 }
