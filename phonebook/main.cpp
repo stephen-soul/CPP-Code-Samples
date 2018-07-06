@@ -1,4 +1,5 @@
 #include "userInterface.h"
+#include "logic.h"
 
 int main() {
     interface menu;

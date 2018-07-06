@@ -1,6 +1,5 @@
 #pragma once
-#include <string>
-#include <regex>
+#include "logic.h"
 class interface {
 public:
     // Constructor && Destructor
@@ -14,4 +13,6 @@ public:
     // Variables to keep track of things.
     bool main_menu_input; // Main menu input flag (false for off true for on)
     bool program_running;
+    // Make an object for the logic
+    logic phonebookLogic;
 };

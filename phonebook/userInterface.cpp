@@ -16,28 +16,33 @@ interface::~interface() = default;
 
 void interface::main_menu() {
     // Make a regex statement to specifically get number input from the user
-    std::regex digit_check("^[1-4]");
+    std::regex digit_check("^[1-5]");
     do {
         cout << "Welcome to the phonebook ver. 1.0" << endl;
         cout << "(1) View registry" << endl;
-        cout << "(2) Edit entry" << endl;
-        cout << "(3) Delete entry" << endl;
-        cout << "(4) Exit" << endl;
+        cout << "(2) Add entry" << endl;
+        cout << "(3) Edit entry" << endl;
+        cout << "(4) Delete entry" << endl;
+        cout << "(5) Exit" << endl;
         cout << ">> ";
         getline(std::cin, menu_choice);
         if(std::regex_match(menu_choice, digit_check)) {
             menu_choice_converted = std::stoi(menu_choice);
             switch(menu_choice_converted) {
                 case 1:
-                    cout << "View Registry" << endl;
+                    cout << endl << "View registry" << endl;
+                    phonebookLogic.add_entry();
                     break;
                 case 2:
-                    cout << "Edit entry" << endl;
+                    cout << endl << "Add entry" << endl;
                     break;
                 case 3:
-                    cout << "Delete entry" << endl;
+                    cout << endl << "Edit entry" << endl;
                     break;
                 case 4:
+                    cout << endl << "Delete entry" << endl;
+                    break;
+                case 5:
                     program_running = false;
                     return;
                     break;
