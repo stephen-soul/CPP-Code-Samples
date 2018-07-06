@@ -1,18 +1,22 @@
+/*Stephen Fetinko 2018*/
 #include "userInterface.h"
-#include <iostream>
 
 using std::cout;
 using std::endl;
 
 interface::interface() {
     // Constructor initializes variables
-    main_menu_input = false;
     menu_choice = "";
     menu_choice_converted = 0;
-    program_running = true;
 }
 
 interface::~interface() = default;
+
+void interface::run_interface() {
+    while(program_state.is_program_running()) {
+        main_menu();
+    }
+}
 
 void interface::main_menu() {
     // Make a regex statement to specifically get number input from the user
@@ -30,11 +34,12 @@ void interface::main_menu() {
             menu_choice_converted = std::stoi(menu_choice);
             switch(menu_choice_converted) {
                 case 1:
-                    cout << endl << "View registry" << endl;
-                    phonebookLogic.add_entry();
+                    cout << endl << "-------------" << endl << "View registry" << endl << "-------------" << endl << endl;
+                    phonebookLogic.view_registry();
                     break;
                 case 2:
                     cout << endl << "Add entry" << endl;
+                    ask_for_entry_to_add();
                     break;
                 case 3:
                     cout << endl << "Edit entry" << endl;
@@ -43,7 +48,8 @@ void interface::main_menu() {
                     cout << endl << "Delete entry" << endl;
                     break;
                 case 5:
-                    program_running = false;
+                    program_state.change_program_running_state();
+                    program_state.change_main_menu_state();
                     return;
                     break;
                 default:
@@ -51,5 +57,28 @@ void interface::main_menu() {
             }
         } else
             cout << "\nInvalid response. Please try again.\n" << endl;
-    } while (!main_menu_input);
+    } while (program_state.is_main_menu_active());
+}
+
+void interface::ask_for_entry_to_add() {
+    // Make some validating regex for the name and phone number
+    std::regex name_match("^[A-Za-z]*+\\s?[A-Za-z]*"); // Match the name as only any number of letters A-Z or a-z first name only or first and last name
+    do {
+        std::cout << std::endl << "Please enter the name you wish to add." << std::endl;
+        std::cout << ">> ";
+        getline(std::cin, name_to_add);
+        if(std::regex_match(name_to_add, name_match)) {
+            std::cout << "Good!";
+        } else {
+            std::cout << "The name doesn't match a proper name!" << std::endl;
+        }
+    } while (program_state.is_name_active());
+}
+
+void interface::ask_for_entry_to_delete() {
+
+}
+
+void interface::ask_for_entry_to_edit() {
+
 }
