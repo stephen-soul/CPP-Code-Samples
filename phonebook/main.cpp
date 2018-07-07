@@ -4,10 +4,6 @@
 
 int main() {
     interface menu;
-    //state program_state;
-    // while(program_state.is_program_running()) {
-    //     menu.main_menu();
-    // }
-    menu.run_interface();
+    menu.runInterface();
     return 0;
 }

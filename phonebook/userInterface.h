@@ -2,6 +2,7 @@
 #pragma once
 #include "logic.h"
 #include "programState.h"
+#include <iostream>
 #include <regex>
 class interface {
 public:
@@ -9,19 +10,21 @@ public:
     interface();
     ~interface();
     // Functions for the interface
-    void run_interface();
-    void main_menu();
-    void ask_for_entry_to_add();
-    void ask_for_entry_to_delete();
-    void ask_for_entry_to_edit();
+    void runInterface();
+    void mainMenu();
+    void displayRegistry();
+    void askForEntryToAdd();
+    void askForEntryToDelete();
+    void askForEntryToEdit();
     // Variables for input
-    std::string menu_choice;
-    int menu_choice_converted;
+    std::string menuChoice;
+    int menuChoiceConverted;
     // Make an object for the logic
     logic phonebookLogic;
     // Make an object for the state
-    state program_state;
+    state programState;
 private:
-    std::string name_to_add;
-    std::string number_to_add;
+    std::string nameToAdd;
+    std::string numberToAdd;
+    std::string numberToDelete;
 };

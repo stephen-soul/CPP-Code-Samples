@@ -2,54 +2,65 @@
 #include "programState.h"
 
 state::state() {
-    program_running = true;
-    main_menu_active = true;
-    asking_for_name = true;
-    asking_for_number = true;
+    programRunning = true;
+    mainMenuActive = true;
+    askingForName = true;
+    askingForNumber = false;
 }
 
 state::~state() = default;
 
-bool state::change_main_menu_state() {
-    if(main_menu_active)
-        main_menu_active = false;
+bool state::changeMainMenuState() {
+    if(mainMenuActive)
+        mainMenuActive = false;
     else
-        main_menu_active = true;
+        mainMenuActive = true;
 }
 
-bool state::change_program_running_state() {
-    if(program_running)
-        program_running = false;
+bool state::changeProgramRunningState() {
+    if(programRunning)
+        programRunning = false;
     else
-        program_running = true;
+        programRunning = true;
 }
 
-bool state::change_name_state() {
-    if(asking_for_name)
-        asking_for_name = false;
+bool state::changeNameState() {
+    if(askingForName)
+        askingForName = false;
     else
-        asking_for_name = true;
+        askingForName = true;
 }
 
-bool state::change_number_state() {
-    if(asking_for_number)
-        asking_for_number = false;
+bool state::changeNumberState() {
+    if(askingForNumber)
+        askingForNumber = false;
     else
-        asking_for_number = true;
+        askingForNumber = true;
 }
 
-bool state::is_main_menu_active() {
-    return main_menu_active;
+bool state::changeDeleteNumberState() {
+    if(askingForDeleteNumber)
+        askingForDeleteNumber = false;
+    else
+        askingForDeleteNumber = true;
 }
 
-bool state::is_program_running() {
-    return program_running;
+bool state::isMainMenuActive() {
+    return mainMenuActive;
 }
 
-bool state::is_name_active() {
-    return asking_for_name;
+bool state::isProgramRunning() {
+    return programRunning;
 }
 
-bool state::is_number_active() {
-    return asking_for_number;
+bool state::isNameActive() {
+    return askingForName;
+}
+
+bool state::isNumberActive() {
+    return askingForNumber;
+}
+
+bool state::isDeleteNumberActive() {
+    return askingForDeleteNumber;
 }

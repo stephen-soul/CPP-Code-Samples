@@ -7,19 +7,22 @@ public:
     state();
     ~state();
     // Functions to change the bools
-    bool change_main_menu_state();
-    bool change_program_running_state();
-    bool change_name_state();
-    bool change_number_state();
+    bool changeMainMenuState();
+    bool changeProgramRunningState();
+    bool changeNameState();
+    bool changeNumberState();
+    bool changeDeleteNumberState();
     // Functions to check the state
-    bool is_main_menu_active();
-    bool is_program_running();
-    bool is_name_active();
-    bool is_number_active();
+    bool isMainMenuActive();
+    bool isProgramRunning();
+    bool isNameActive();
+    bool isNumberActive();
+    bool isDeleteNumberActive();
 private:
     // Bools
-    bool program_running;
-    bool main_menu_active;
-    bool asking_for_name;
-    bool asking_for_number;
+    bool programRunning;
+    bool mainMenuActive;
+    bool askingForName;
+    bool askingForNumber;
+    bool askingForDeleteNumber;
 };
