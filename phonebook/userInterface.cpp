@@ -14,12 +14,14 @@ interface::interface() {
 
 interface::~interface() = default;
 
+// Function to act as the portal from main. Loops the main menu as long as the program is running
 void interface::runInterface() {
     while(programState.isProgramRunning()) {
         mainMenu();
     }
 }
 
+// Function for the main menu interface allowing the user to select where they want to go
 void interface::mainMenu() {
     // Make a regex statement to specifically get number input from the user
     std::regex digitCheck("^[1-5]");
@@ -64,9 +66,9 @@ void interface::mainMenu() {
     } while (programState.isMainMenuActive());
 }
 
+// Function to display the registry and inform when it's at the end
 void interface::displayRegistry() {
-    if (phonebookLogic.names.size() > 0)
-    {
+    if (phonebookLogic.names.size() > 0) {
         for (int i = 0; i < phonebookLogic.phoneNumbers.size(); i++)
         {
             std::cout << "(" << i + 1 << ") " << phonebookLogic.names.at(i) << " :: " << phonebookLogic.phoneNumbers.at(i) << std::endl
@@ -77,8 +79,7 @@ void interface::displayRegistry() {
                   << "----------------------------------------" << std::endl
                   << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Empty!" << std::endl
                   << std::endl;
         std::cout << "--------------------------------" << std::endl
@@ -132,9 +133,10 @@ void interface::askForEntryToDelete() {
     } while (programState.isDeleteNumberActive());
 }
 
+// Function for editing. Acts similar to the adding, but with an additional spot entry like what was used in the delete process
 void interface::askForEntryToEdit() {
     // Make some validating regex for the spot, name and phone number
-    std::regex spotMatch("^[0-9]*");
+    std::regex spotMatch("^[0-9]*");                                        // Match 0-9 for input to ensure they try to match a number listed
     std::regex nameMatch("^[A-Za-z]*+\\s?[A-Za-z]*");                       // Match the name as only any number of letters A-Z or a-z first name only or first and last name
     std::regex numberMatch("[[:digit:]]{3}-[[:digit:]]{3}-[[:digit:]]{4}"); // Match the phone number to something like 999-999-9999
     do {

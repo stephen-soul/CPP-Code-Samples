@@ -13,6 +13,10 @@ state::state() {
 
 state::~state() = default;
 
+/*
+    All of the below functions exist to manipulate the state of the program through bools
+*/
+
 bool state::changeMainMenuState() {
     if(mainMenuActive)
         mainMenuActive = false;
