@@ -12,12 +12,14 @@ public:
     bool changeNameState();
     bool changeNumberState();
     bool changeDeleteNumberState();
+    bool changeEditingNameState();
     // Functions to check the state
     bool isMainMenuActive();
     bool isProgramRunning();
     bool isNameActive();
     bool isNumberActive();
     bool isDeleteNumberActive();
+    bool isEditingNameActive();
 private:
     // Bools
     bool programRunning;
@@ -25,4 +27,5 @@ private:
     bool askingForName;
     bool askingForNumber;
     bool askingForDeleteNumber;
+    bool askingForEditedName;
 };

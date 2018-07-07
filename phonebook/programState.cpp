@@ -6,6 +6,7 @@ state::state() {
     mainMenuActive = true;
     askingForName = true;
     askingForNumber = false;
+    askingForEditedName = true;
 }
 
 state::~state() = default;
@@ -45,6 +46,13 @@ bool state::changeDeleteNumberState() {
         askingForDeleteNumber = true;
 }
 
+bool state::changeEditingNameState() {
+    if(askingForEditedName)
+        askingForEditedName = false;
+    else    
+        askingForEditedName = true;
+}
+
 bool state::isMainMenuActive() {
     return mainMenuActive;
 }
@@ -63,4 +71,8 @@ bool state::isNumberActive() {
 
 bool state::isDeleteNumberActive() {
     return askingForDeleteNumber;
+}
+
+bool state::isEditingNameActive() {
+    return askingForEditedName;
 }

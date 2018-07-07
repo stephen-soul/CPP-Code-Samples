@@ -26,6 +26,8 @@ bool logic::removeEntry(int number) {
 }
 
 // Edit an entry. Will take a nuber and subtract 1 to match the position in the vector.
-void logic::editEntry() {
-
+void logic::editEntry(int numberToEdit, std::string name, std::string number) {
+    int editingSpot = numberToEdit - 1;
+    names.at(editingSpot) = name;
+    phoneNumbers.at(editingSpot) = number;
 }

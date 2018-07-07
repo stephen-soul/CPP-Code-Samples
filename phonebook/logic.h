@@ -13,5 +13,5 @@ public:
     // Functions for adding, removing and editing
     void addEntry(std::string name, std::string number);
     bool removeEntry(int number);
-    void editEntry();
+    void editEntry(int numberToEdit, std::string name, std::string number);
 };
