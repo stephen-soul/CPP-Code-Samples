@@ -21,13 +21,21 @@ void logic::addEntry(std::string name, std::string number) {
 // Remove an entry from the registry. Will take a number and subtract 1 to match the position in the vector.
 bool logic::removeEntry(int number) {
     int numberToDelete = number - 1;
-    names.erase(names.begin() + numberToDelete);
-    phoneNumbers.erase(phoneNumbers.begin() + numberToDelete);
+    if(names.size() >= numberToDelete) {
+        names.erase(names.begin() + numberToDelete);
+        phoneNumbers.erase(phoneNumbers.begin() + numberToDelete);
+        return true;
+    } else
+        return false;
 }
 
 // Edit an entry. Will take a nuber and subtract 1 to match the position in the vector.
-void logic::editEntry(int numberToEdit, std::string name, std::string number) {
+bool logic::editEntry(int numberToEdit, std::string name, std::string number) {
     int editingSpot = numberToEdit - 1;
-    names.at(editingSpot) = name;
-    phoneNumbers.at(editingSpot) = number;
+    if(names.size() >= editingSpot) {
+        names.at(editingSpot) = name;
+        phoneNumbers.at(editingSpot) = number;
+        return true;
+    } else 
+        return false;
 }

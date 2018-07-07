@@ -6,7 +6,9 @@ state::state() {
     mainMenuActive = true;
     askingForName = true;
     askingForNumber = false;
-    askingForEditedName = true;
+    askingForEditedSpot = true;
+    askingForEditedName = false;
+    askingForEditedNumber = false;
 }
 
 state::~state() = default;
@@ -46,12 +48,27 @@ bool state::changeDeleteNumberState() {
         askingForDeleteNumber = true;
 }
 
+bool state::changeEditingSpotState() {
+    if(askingForEditedSpot)
+        askingForEditedSpot = false;
+    else
+        askingForEditedSpot = true;
+}
+
 bool state::changeEditingNameState() {
     if(askingForEditedName)
         askingForEditedName = false;
     else    
         askingForEditedName = true;
 }
+
+bool state::changeEditingNumberState() {
+    if(askingForEditedNumber)
+        askingForEditedNumber = false;
+    else
+        askingForEditedNumber = true;
+}
+
 
 bool state::isMainMenuActive() {
     return mainMenuActive;
@@ -73,6 +90,14 @@ bool state::isDeleteNumberActive() {
     return askingForDeleteNumber;
 }
 
+bool state::isEditingSpotActive() {
+    return askingForEditedSpot;
+}
+
 bool state::isEditingNameActive() {
     return askingForEditedName;
+}
+
+bool state::isEditingNumberActive() {
+    return askingForEditedNumber;
 }

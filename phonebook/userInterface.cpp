@@ -109,7 +109,7 @@ void interface::askForEntryToAdd() {
         getline(std::cin, numberToAdd);
         if(std::regex_match(numberToAdd, numberMatch)) {
             phonebookLogic.addEntry(nameToAdd, numberToAdd);
-            std::cout << "The number was successfully added!" << std::endl << std::endl;
+            std::cout << "The entry was successfully added!" << std::endl << std::endl;
             programState.changeNumberState();
             programState.changeNameState();
         } else
@@ -133,38 +133,51 @@ void interface::askForEntryToDelete() {
 }
 
 void interface::askForEntryToEdit() {
-    // Make some validating regex for the name and phone number
+    // Make some validating regex for the spot, name and phone number
+    std::regex spotMatch("^[0-9]*");
     std::regex nameMatch("^[A-Za-z]*+\\s?[A-Za-z]*");                       // Match the name as only any number of letters A-Z or a-z first name only or first and last name
     std::regex numberMatch("[[:digit:]]{3}-[[:digit:]]{3}-[[:digit:]]{4}"); // Match the phone number to something like 999-999-9999
+    do {
+        std::cout << std::endl
+                  << "Please enter the number you wish to edit (located beside the name)" << std::endl
+                  << ">> ";
+        getline(std::cin, numberToEdit);
+        if (std::regex_match(numberToEdit, spotMatch) && std::stoi(numberToEdit) <= phonebookLogic.names.size()) {
+            convertedEditNumber = std::stoi(numberToEdit);
+            programState.changeEditingSpotState();
+            programState.changeEditingNameState();
+        } else
+            std::cout << "The number doesn't exist on the board!";
+    } while (programState.isEditingSpotActive());
     do
     {
         std::cout << std::endl
-                  << "Please enter the name you wish to add." << std::endl;
+                  << "Please enter the new name for this entry" << std::endl;
         std::cout << ">> ";
-        getline(std::cin, nameToAdd);
-        if (std::regex_match(nameToAdd, nameMatch))
+        getline(std::cin, editedName);
+        if (std::regex_match(editedName, nameMatch))
         {
-            programState.changeNameState();
-            programState.changeNumberState();
+            programState.changeEditingNameState();
+            programState.changeEditingNumberState();
         }
         else
             std::cout << "The name doesn't match a proper name!" << std::endl;
-    } while (programState.isNameActive());
+    } while (programState.isEditingNameActive());
     do
     {
         std::cout << std::endl
-                  << "Please enter the number associated to add to the registry." << std::endl;
+                  << "Please enter the new phone number for this entry." << std::endl;
         std::cout << ">> ";
-        getline(std::cin, numberToAdd);
-        if (std::regex_match(numberToAdd, numberMatch))
+        getline(std::cin, editedNumber);
+        if (std::regex_match(editedNumber, numberMatch))
         {
-            phonebookLogic.addEntry(nameToAdd, numberToAdd);
-            std::cout << "The number was successfully added!" << std::endl
+            phonebookLogic.editEntry(convertedEditNumber, editedName, editedNumber);
+            std::cout << "The entry was successfully edited!" << std::endl
                       << std::endl;
-            programState.changeNumberState();
-            programState.changeNameState();
+            programState.changeEditingNumberState();
+            programState.changeEditingSpotState();
         }
         else
             std::cout << "The number doesn't match the format (ex. 999-123-4567)";
-    } while (programState.isNumberActive());
+    } while (programState.isEditingNumberActive());
 }

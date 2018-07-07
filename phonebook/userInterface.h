@@ -27,4 +27,8 @@ private:
     std::string nameToAdd;
     std::string numberToAdd;
     std::string numberToDelete;
+    std::string numberToEdit;
+    std::string editedName;
+    std::string editedNumber;
+    int convertedEditNumber;
 };
